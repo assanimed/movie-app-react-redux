@@ -1,0 +1,37 @@
+.nav ul li {
+    perspective: 1000px;
+}
+
+.menu-item img {
+    display: none;
+    transition: all 1s linear;
+}
+
+.menu-item:hover img {
+    display: block;
+}
+
+.rotate,
+nav ul li a:hover {
+    transform: rotateY(5deg) rotateX(9deg) translateX(6px) skewX(3deg);
+    border-radius: 5px;
+    background-color: #4945ff;
+    /* box-shadow: 0 0 6px 1px #2e247e; */
+}
+
+.bg-img {
+    background-image: url('./arrow.svg');
+    background-repeat: no-repeat;
+    background-position: left 50px center;
+    background-size: 7%;
+    animation: showUp .3s linear;
+}
+
+@keyframes showUp {
+    from {
+        background-position: left 40px center;
+    }
+    to {
+        background-position: left 50px center;
+    }
+}
