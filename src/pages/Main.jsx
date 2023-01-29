@@ -12,7 +12,7 @@ const Preview = styled.div`
 
 function Main() {
   return (
-    <div className=" dark:bg-[#1B2430] dark:text-white">
+    <div className="dark:bg-[#1B2430] dark:text-white">
       <Header />
       <main className="flex">
         <SideBar>
