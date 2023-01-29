@@ -1,16 +1,38 @@
 import React from "react";
 
 import { useRouteError } from "react-router-dom";
+import Header from "../Components/Header/Header";
+import { TbError404, TbMovieOff } from "react-icons/tb";
+import { FcOnlineSupport } from "react-icons/fc";
 
 function ErrorPage() {
-  //const { statusText, message } = useRouteError();
+  const error = useRouteError();
   return (
-    <div
-      className="text-center text-3xl mt-[35px]"
-      style={{ minHeight: "calc(100vh - 169px)" }}
-    >
-      Error Page Not Found
-    </div>
+    <>
+      <Header />
+      <div
+        className="h-full flex flex-col justify-center text-center text-3xl"
+        style={{ minHeight: "calc(100vh - 169px)" }}
+      >
+        {error.status === 404 ? (
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex gap-5 items-center">
+              <TbMovieOff className=" text-6xl text-indigo-900" />
+              <TbError404 className="text-9xl text-indigo-600" />
+            </div>
+            <span className=" text-indigo-800">Page Not Found</span>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center gap-4">
+            <div>
+              <FcOnlineSupport className=" text-4xl" />
+            </div>
+            <div className="text-5xl text-orange-600">Unknown Error</div>
+            <div className="text-sm">We're working to fix the problem!</div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
