@@ -1,25 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "./Logo";
-import NavMenu from "./NavMenu";
-import { Link } from "react-router-dom";
 
-const Wrapper = styled.div`
+const Wrapper = styled.aside`
   width: 250px;
-  height: 100vh;
-  background: #3b27ab;
-  box-shadow: 3px -1px 7px #856a6a;
-  position: fixed;
-  z-index: 120;
+  min-width: 250px;
+  height: calc(100vh - 70px);
+  /*box-shadow: 3px -1px 7px #856a6a;*/
+  position: relative;
+  z-index: 20;
 `;
 
-export default function SideBar() {
+const MenuOrch = styled.div`
+  width: inherit;
+  height: inherit;
+  padding-top: 30px;
+  position: fixed;
+`;
+
+export default function SideBar({ children }) {
   return (
-    <Wrapper>
-      <Link to="/">
-        <Logo />
-      </Link>
-      <NavMenu />
+    <Wrapper className="hidden md:block">
+      <MenuOrch className="bg-[#3b27ab] dark:bg-[#211469]">
+        {/* <NavMenu /> */}
+        {children}
+      </MenuOrch>
     </Wrapper>
   );
 }

@@ -16,7 +16,7 @@ function NavMenu() {
   };
 
   return (
-    <nav className={`mt-[100px] flex flex-col text-center ${classes.nav}`}>
+    <nav className={`flex flex-col text-center ${classes.nav}`}>
       <ul>
         <li>
           <NavLink to="new" className={activeState}>
@@ -25,34 +25,13 @@ function NavMenu() {
         </li>
 
         <li>
-          <NavLink to="trending" className={activeState}>
-            Trending
+          <NavLink to="top" className={activeState}>
+            Top Rated
           </NavLink>
         </li>
-
-        <hr className="bg-[#306f9960] h-[2px] border-none" />
-
         <li>
-          <NavLink to="movies" className={activeState}>
-            Movies
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink to="series" className={activeState}>
-            Series
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink to="tv-shows" className={activeState}>
-            TV Shows
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink to="animations" className={activeState}>
-            Animations
+          <NavLink to="all" className={activeState}>
+            Show All
           </NavLink>
         </li>
       </ul>
