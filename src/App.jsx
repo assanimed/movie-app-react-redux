@@ -1,14 +1,7 @@
 import "./App.css";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// ROUTING RELATED
-
-import MainPreview from "./Components/MainPreview/MainPreview";
 import Main from "./Pages/Main";
 import Dashboard from "./Protected/Dashboard";
 import ErrorPage from "./Pages/ErrorPage";
@@ -24,6 +17,9 @@ import MovieLayout from "./Protected/Movies/MovieLayout";
 import UpdateMovie from "./Protected/Movies/UpdateMovie";
 import UsersLayout from "./Protected/Users/UsersLayout";
 import NewUser from "./Protected/Users/NewUser";
+import Top from "./Pages/Top";
+import New from "./Pages/New";
+import All from "./Pages/All";
 
 // routing
 
@@ -38,8 +34,16 @@ const router = createBrowserRouter([
         element: <HomePreview />,
       },
       {
-        path: "/:page",
-        element: <MainPreview />,
+        path: "/top",
+        element: <Top />,
+      },
+      {
+        path: "/new",
+        element: <New />,
+      },
+      {
+        path: "/all",
+        element: <All />,
       },
       {
         path: "/notFound",
