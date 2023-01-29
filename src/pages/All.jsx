@@ -34,7 +34,6 @@ const All = () => {
     else loaAllovies(currentPage, pageLimit);
     return () => {
       dispatch(setPublicMovies([]));
-      console.log("ALL GONE 😭");
     };
   }, [filterMode, currentPage]);
   return (
