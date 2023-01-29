@@ -6,7 +6,7 @@ import Main from "./Pages/Main";
 import Dashboard from "./Protected/Dashboard";
 import ErrorPage from "./Pages/ErrorPage";
 import HomePreview from "./Pages/HomePreview";
-import TitlePreview from "./Components/Title/TitlePreview";
+import TitlePreview from "./Pages/TitlePreview";
 import Login from "./Pages/Login";
 import Movies from "./Protected/Movies/Movies";
 import Users from "./Protected/Users/Users";
@@ -44,10 +44,6 @@ const router = createBrowserRouter([
       {
         path: "/all",
         element: <All />,
-      },
-      {
-        path: "/notFound",
-        element: <ErrorPage />,
       },
       {
         path: "/title/:id",
