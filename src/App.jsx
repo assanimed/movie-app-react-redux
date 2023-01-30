@@ -6,7 +6,7 @@ import Main from "./Pages/Main";
 import Dashboard from "./Protected/Dashboard";
 import ErrorPage from "./Pages/ErrorPage";
 import HomePreview from "./Pages/HomePreview";
-import TitlePreview from "./Pages/TitlePreview";
+import TitlePreview, { loader as TitleLoader } from "./Pages/TitlePreview";
 import Login from "./Pages/Login";
 import Movies from "./Protected/Movies/Movies";
 import Users from "./Protected/Users/Users";
@@ -48,6 +48,7 @@ const router = createBrowserRouter([
       {
         path: "/title/:id",
         element: <TitlePreview />,
+        loader: TitleLoader,
       },
     ],
   },
