@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
+src/utils/sleep.jsx
 
 .env
