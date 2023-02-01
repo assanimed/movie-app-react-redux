@@ -20,8 +20,7 @@ import NewUser from "./Protected/Users/NewUser";
 import Top from "./Pages/Top";
 import New from "./Pages/New";
 import All from "./Pages/All";
-
-// routing
+import useInitDarkTheme from "./utils/hooks/useInitDarkTheme";
 
 const router = createBrowserRouter([
   {
@@ -50,62 +49,62 @@ const router = createBrowserRouter([
         element: <TitlePreview />,
         loader: TitleLoader,
       },
-    ],
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-    errorElement: <ErrorPage />,
-    children: [
       {
-        index: true,
-        element: <AdminWelcome />,
-      },
-      {
-        path: "movies",
-        element: <MovieLayout />,
+        path: "/dashboard",
+        element: <Dashboard />,
         children: [
           {
             index: true,
-            element: <Movies />,
+            element: <AdminWelcome />,
           },
           {
-            path: "new",
-            element: <AddNewMovie />,
+            path: "movies",
+            element: <MovieLayout />,
+            children: [
+              {
+                index: true,
+                element: <Movies />,
+              },
+              {
+                path: "new",
+                element: <AddNewMovie />,
+              },
+              {
+                path: "update/:id",
+                element: <UpdateMovie />,
+              },
+            ],
           },
           {
-            path: "update/:id",
-            element: <UpdateMovie />,
+            path: "users",
+            element: <UsersLayout />,
+            children: [
+              {
+                index: true,
+                element: <Users />,
+              },
+              {
+                path: "new",
+                element: <NewUser />,
+              },
+            ],
           },
         ],
       },
       {
-        path: "users",
-        element: <UsersLayout />,
-        children: [
-          {
-            index: true,
-            element: <Users />,
-          },
-          {
-            path: "new",
-            element: <NewUser />,
-          },
-        ],
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
       },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/logout",
-    element: <Logout />,
   },
 ]);
 
 function App() {
+  useInitDarkTheme();
   return (
     <div className="App">
       <RouterProvider router={router} />
