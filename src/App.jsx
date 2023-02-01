@@ -2,24 +2,30 @@ import "./App.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Main from "./Pages/Main";
-import Dashboard from "./Protected/Dashboard";
-import ErrorPage from "./Pages/ErrorPage";
-import HomePreview from "./Pages/HomePreview";
-import TitlePreview, { loader as TitleLoader } from "./Pages/TitlePreview";
-import Login from "./Pages/Login";
-import Movies from "./Protected/Movies/Movies";
-import Users from "./Protected/Users/Users";
-import Logout from "./Pages/Logout";
-import AdminWelcome from "./Protected/AdminWelcome";
-import AddNewMovie from "./Protected/Movies/AddNewMovie";
-import MovieLayout from "./Protected/Movies/MovieLayout";
-import UpdateMovie from "./Protected/Movies/UpdateMovie";
-import UsersLayout from "./Protected/Users/UsersLayout";
-import NewUser from "./Protected/Users/NewUser";
-import Top from "./Pages/Top";
-import New from "./Pages/New";
-import All from "./Pages/All";
+import {
+  Main,
+  Home,
+  All,
+  New,
+  Top,
+  TitlePreview,
+  Login,
+  Logout,
+  ErrorPage,
+} from "./Pages";
+import { loader as TitleLoader } from "./Pages/TitlePreview";
+
+import {
+  Dashboard,
+  AdminWelcome,
+  MovieLayout,
+  Movies,
+  AddNewMovie,
+  UpdateMovie,
+  UsersLayout,
+  Users,
+  NewUser,
+} from "./Protected";
 import useInitDarkTheme from "./utils/hooks/useInitDarkTheme";
 
 const router = createBrowserRouter([
@@ -30,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePreview />,
+        element: <Home />,
       },
       {
         path: "/top",
