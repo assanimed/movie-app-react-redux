@@ -16,6 +16,7 @@ function Logout() {
   }, []);
   return (
     <div>
+      <Header />
       <main className="py-3 flex justify-center">Loggin out ...</main>
     </div>
   );

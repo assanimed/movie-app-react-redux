@@ -46,6 +46,7 @@ function Login() {
   }, [isAuth]);
   return (
     <div className="dark:bg-[#1B2430] min-h-[100vh] dark:text-white">
+      <Header />
       <main className="py-3 flex justify-center">
         <LoginWrapper>
           <h1 className="text-2xl mb-5"> Admin Login </h1>
