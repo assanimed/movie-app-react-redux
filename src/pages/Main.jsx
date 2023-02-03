@@ -14,7 +14,7 @@ const Preview = styled.div`
 
 function Main() {
   const location = useLocation();
-  const isDashboard = location.pathname === "/dashboard";
+  const isDashboard = location.pathname.split("/")[1] === "dashboard";
   return (
     <div className="dark:bg-[#1B2430] dark:text-white">
       <Header />
