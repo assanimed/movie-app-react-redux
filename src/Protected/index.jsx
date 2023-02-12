@@ -1,0 +1,9 @@
+export { default as Dashboard } from "./Dashboard";
+export { default as AdminWelcome } from "./AdminWelcome";
+export { default as Movies } from "./Movies/Movies";
+export { default as AddNewMovie } from "./Movies/AddNewMovie";
+export { default as MovieLayout } from "./Movies/MovieLayout";
+export { default as UpdateMovie } from "./Movies/UpdateMovie";
+export { default as Users } from "./Users/Users";
+export { default as UsersLayout } from "./Users/UsersLayout";
+export { default as NewUser } from "./Users/NewUser";

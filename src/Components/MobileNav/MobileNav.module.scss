@@ -1,0 +1,28 @@
+.mobileNav {
+    // left: -450px;
+    left: -450px;
+    transition: all .5s cubic-bezier(0.58, 0, 0, 1)/* linear */
+    ;
+}
+
+.open {
+    left: 0;
+}
+
+// .hide {
+//     // left: -300px;
+//     animation: toLeft .3s cubic-bezier(0.58, 0, 0, 1)/* cubic-bezier(1, 0.01, 0, 0.63) */
+//     forwards;
+// }
+// @keyframes toLeft {
+//     from {
+//         left: 0;
+//     }
+//     to {
+//         margin-left: -450px;
+//     }
+// }
+//     to {
+//         margin-left: -450px;
+//     }
+// }
