@@ -9,6 +9,7 @@ import getTokenCookie from "../utils/helpers/getTokenCookie";
 
 export const AxiosInstance = axios.create({
   baseURL: `${BASEURL}/api`,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
@@ -41,9 +42,9 @@ AxiosInstance.interceptors.response.use(
       if (refreshData?.jwt) {
         const currentUser = store.getState().Auth.user;
         const token = refreshData.jwt;
-        document.cookie = `ma_at=${token}`;
-        document.cookie = `last_login=${new Date()}`;
-        store.dispatch(setUser({ user: currentUser, token }));
+        document.cookie = `ma_at=${token};SameSite=Lax`;
+        document.cookie = `last_login=${new Date()};SameSite=Lax`;
+        store.dispatch(setUser({ user: currentUser }));
         originalRequestConfig.headers["Authorization"] = `Bearer ${token}`;
         const ress = await AxiosInstance.request(originalRequestConfig);
         return Promise.resolve(ress.data);
