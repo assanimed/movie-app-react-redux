@@ -16,7 +16,9 @@ const useAutoLogin = () => {
           Authorization: `Bearer ${Token}`,
         },
       });
-      dispatch(setUser({ user: res.data }));
+      let user = res;
+      if (res?.data) user = res?.data;
+      dispatch(setUser({ user }));
     };
     verifyUser();
   }, []);

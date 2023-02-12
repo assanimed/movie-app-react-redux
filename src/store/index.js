@@ -8,6 +8,7 @@ import Filter from "./FilterSlice";
 import Search from "./SearchSlice";
 import Title from "./TitleSlice";
 import Theme from "./ThemeSlice";
+import RoutesControl from "./RoutesControlSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     Search,
     Title,
     Theme,
+    RoutesControl,
   },
 });
 

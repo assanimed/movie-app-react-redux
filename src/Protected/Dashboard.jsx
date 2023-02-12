@@ -4,12 +4,16 @@ import Header from "../Components/Header/Header";
 import SideBar from "../Components/SideBar/SideBar";
 import { Preview } from "../Pages/Main";
 import AdminMenu from "./Components/AdminMenu";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate, useLocation } from "react-router";
 import BackDrop from "../Components/ui/BackDrop";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Details from "../Components/ui/Details";
+import { setPrevRoute } from "../store/RoutesControlSlice";
 
 function Dashboard() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  dispatch(setPrevRoute(location.pathname));
   const { isOpen, target } = useSelector((state) => state.Modal);
   const isAuth = useSelector((state) => state.Auth.isAuth);
   const Navigate = useNavigate();

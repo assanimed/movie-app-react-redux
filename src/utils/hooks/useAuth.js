@@ -13,8 +13,6 @@ const useAuth = () => {
       document.cookie = `ma_at=${data.jwt};SameSite=Lax`;
       document.cookie = `last_login=${new Date()};SameSite=Lax`;
 
-      console.log("USER DATA --> ", data);
-
       dispatch(
         setUser({
           user: { ...data.user },

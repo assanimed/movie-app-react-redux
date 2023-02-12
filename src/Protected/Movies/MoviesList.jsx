@@ -15,8 +15,6 @@ function MoviesList() {
     const loadMovies = async () => {
       const res = await getMovies(currentPage, pageLimit);
 
-      console.log("RES DATA --> ", res);
-
       dispatch(setMovies(res?.data));
       dispatch(setMetaData(res?.meta?.pagination));
     };

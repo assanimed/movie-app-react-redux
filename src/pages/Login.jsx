@@ -39,10 +39,12 @@ const ErroWrapper = styled.span`
 
 function Login() {
   const { authError, isAuth } = useSelector((state) => state.Auth);
+  const prevRoute = useSelector((state) => state.RoutesControl.prevRoute);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuth) navigate("/dashboard");
+    if (isAuth) navigate(prevRoute ?? "/dashboard");
   }, [isAuth]);
   return (
     <div className="dark:bg-[#1B2430] min-h-[100vh] dark:text-white">
