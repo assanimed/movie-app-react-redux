@@ -7,7 +7,6 @@ import { FcOnlineSupport } from "react-icons/fc";
 
 function ErrorPage() {
   const error = useRouteError();
-  // console.log(error);
   return (
     <>
       <Header />

@@ -10,6 +10,9 @@ const useAuth = () => {
         identifier: username,
         password: password,
       });
+      document.cookie = `ma_at=${data.jwt}`;
+      document.cookie = `last_login=${new Date()}`;
+
       dispatch(
         setUser({
           user: { ...data.user },

@@ -6,6 +6,7 @@ import NavMenu from "../Components/SideBar/NavMenu";
 import Footer from "../Components/Footer/Footer";
 import AdminMenu from "../Protected/Components/AdminMenu";
 import { useLocation } from "react-router";
+import useAutoLogin from "../utils/hooks/useAutoLogin";
 
 const Preview = styled.div`
   flex-grow: 1;
@@ -13,6 +14,8 @@ const Preview = styled.div`
 `;
 
 function Main() {
+  useAutoLogin();
+
   const location = useLocation();
   const isDashboard = location.pathname.split("/")[1] === "dashboard";
   return (

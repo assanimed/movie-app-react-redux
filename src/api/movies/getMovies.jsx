@@ -6,11 +6,16 @@ const getMovies = async (token, page, pageLimit) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const { data: res } = await AxiosInstance.get(
+  const res = await AxiosInstance.get(
     `/movies?pagination[page]=${page}&&pagination[pageSize]=${pageLimit}`,
     options
   );
-  const { data, meta } = res;
+
+  let { data, meta } = { ...res };
+  if (!meta) {
+    data = data?.data;
+    meta = data?.meta;
+  }
   return { data, meta };
 };
 
