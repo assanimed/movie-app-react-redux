@@ -1,8 +1,9 @@
 import { AxiosInstance } from "../AxiosInstance";
-export const getUser = async (token, id) => {
+import getTokenCookie from "../../utils/helpers/getTokenCookie";
+export const getUser = async (id) => {
   const { data } = await AxiosInstance.get(`/users/${id}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getTokenCookie()}`,
     },
   });
   return data;

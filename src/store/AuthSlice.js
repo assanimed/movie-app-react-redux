@@ -5,15 +5,13 @@ const Auth = createSlice({
   initialState: {
     isAuth: false,
     user: null,
-    token: null,
     roles: [],
     authError: null,
   },
   reducers: {
     setUser: (state, action) => {
-      const { user, token } = action.payload;
+      const { user } = action.payload;
       state.user = user;
-      state.token = token;
       state.isAuth = true;
     },
     setAuthError: (state, action) => {
@@ -21,7 +19,6 @@ const Auth = createSlice({
     },
     unsetUser: (state) => {
       state.user = null;
-      state.token = null;
       state.isAuth = false;
       state.roles = [];
     },

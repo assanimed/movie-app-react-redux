@@ -1,13 +1,14 @@
+import getTokenCookie from "../../utils/helpers/getTokenCookie";
 import { AxiosInstance } from "../AxiosInstance";
 
-const addUser = async ({ username, email, password }, token) => {
+const addUser = async ({ username, email, password }) => {
   try {
     const res = await AxiosInstance.post(
       "/auth/local/register",
       { username, email, password },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${getTokenCookie()}`,
         },
       }
     );

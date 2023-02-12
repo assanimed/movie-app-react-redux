@@ -13,7 +13,6 @@ import getMovies from "../../api/movies/getMovies";
 const Details = ({ handleConfButton, onCancel }) => {
   const dispatch = useDispatch();
   const movie = useSelector((state) => state.Modal.movie);
-  const token = useSelector((state) => state.Auth.token);
   const { pageLimit, ...rest } = useSelector((state) => state.Movies);
 
   const handleCancel = () => {
@@ -24,7 +23,7 @@ const Details = ({ handleConfButton, onCancel }) => {
     }, 200);
   };
   const handleConfirm = async () => {
-    await deleteMovie(movie.id, token);
+    await deleteMovie(movie.id);
     setTimeout(async () => {
       dispatch(setModalStatus(false));
       dispatch(setModalMovie(null));
@@ -32,7 +31,7 @@ const Details = ({ handleConfButton, onCancel }) => {
       const {
         data,
         meta: { pagination: pagi },
-      } = await getMovies(token, rest.currentPage, pageLimit);
+      } = await getMovies(rest.currentPage, pageLimit);
       dispatch(setMetaData(pagi));
       dispatch(setMovies(data));
     }, 200);

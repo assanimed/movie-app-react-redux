@@ -25,7 +25,6 @@ const userSchema = Yup.object().shape({
 });
 
 const NewUserForm = () => {
-  const token = useSelector((state) => state.Auth.token);
   const userExists = useSelector((state) => state.Users.form.userExists);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
@@ -43,7 +42,7 @@ const NewUserForm = () => {
       validationSchema={userSchema}
       onSubmit={async (values) => {
         try {
-          const res = await addUser(values, token);
+          const res = await addUser(values);
           if (res?.error) {
             throw new Error(res.message);
           }

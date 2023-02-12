@@ -1,9 +1,10 @@
 import { AxiosInstance } from "../AxiosInstance";
+import getTokenCookie from "../../utils/helpers/getTokenCookie";
 
-const getMovies = async (token, page, pageLimit) => {
+const getMovies = async (page, pageLimit) => {
   const options = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getTokenCookie()}`,
     },
   };
   const res = await AxiosInstance.get(

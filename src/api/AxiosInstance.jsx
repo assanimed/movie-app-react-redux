@@ -5,6 +5,8 @@ import { setUser, unsetUser } from "../store/AuthSlice";
 
 import store from "../store";
 
+import getTokenCookie from "../utils/helpers/getTokenCookie";
+
 export const AxiosInstance = axios.create({
   baseURL: `${BASEURL}/api`,
   headers: {
@@ -25,12 +27,6 @@ const refreshAccessToken = async () => {
     return e;
   }
 };
-
-const getTokenCookie = () =>
-  document.cookie
-    .split("; ")
-    .find((item) => item.startsWith("ma_at"))
-    ?.split("=")[1];
 
 AxiosInstance.interceptors.response.use(
   function (response) {

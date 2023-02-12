@@ -16,7 +16,6 @@ const ErrMessageWrapper = styled.div`
 `;
 
 function NewMovieForm() {
-  const token = useSelector((state) => state.Auth.token);
   const divRowStyle = `flex flex-col items-start gap-2`;
   const labelStyle = `px-2`;
   const inputStyle = `border-2 dark:bg-transparent rounded  p-2 w-full max-w-[30rem] text-sm focus:outline-none focus:border-indigo-400`;
@@ -57,7 +56,7 @@ function NewMovieForm() {
           formData.append("data", JSON.stringify(data));
 
           try {
-            const res = await postMovie(token, formData);
+            const res = await postMovie(formData);
             if (res?.error) throw new Error(res.error);
             setSubmitting(false);
             navigate("/dashboard/movies");

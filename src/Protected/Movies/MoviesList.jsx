@@ -10,11 +10,11 @@ function MoviesList() {
   const { pageLimit, movies, currentPage } = useSelector(
     (state) => state.Movies
   );
-  const token = useSelector((state) => state.Auth.token);
 
   useEffect(() => {
     const loadMovies = async () => {
-      const res = await getMovies(token, currentPage, pageLimit);
+      const res = await getMovies(currentPage, pageLimit);
+
       dispatch(setMovies(res?.data));
       dispatch(setMetaData(res?.meta?.pagination));
     };

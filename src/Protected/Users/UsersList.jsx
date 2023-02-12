@@ -21,14 +21,13 @@ const UsersList = () => {
   const navigate = useNavigate();
   const users = useSelector((state) => state.Users.users);
   const user = useSelector((state) => state.Modal.user);
-  const token = useSelector((state) => state.Auth.token);
   const authUser = useSelector((state) => state.Auth.user);
   const { isOpen, target } = useSelector((state) => state.Modal);
 
   const handleDeleteClick = async (id) => {
     dispatch(setTarget(4));
     dispatch(setModalStatus(true));
-    const data = await getUser(token, id);
+    const data = await getUser(id);
     dispatch(setModalUser(data));
   };
   const clearModal = () => {
@@ -40,14 +39,14 @@ const UsersList = () => {
   const handleCancel = () => clearModal();
 
   const handlefirmation = async () => {
-    await deleteUser(user.id, token);
+    await deleteUser(user.id);
     setTimeout(clearModal, 200);
     if (authUser.id === user.id) navigate("/logout");
   };
 
   useEffect(() => {
     (async () => {
-      const users = await getUsers(token);
+      const users = await getUsers();
       const usersSet = users?.data ? users?.data : users;
       dispatch(setUsers(usersSet));
     })();

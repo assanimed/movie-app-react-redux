@@ -31,8 +31,6 @@ function UpdateMovieForm({ movie, id }) {
   const hideErrMessage = () => setSubmitError((prev) => !prev);
   const handleCancel = () => navigate("/dashboard/movies");
 
-  const token = useSelector((state) => state.Auth.token);
-
   return (
     <div className="p-5 mb-[3rem]">
       <Formik
@@ -54,7 +52,7 @@ function UpdateMovieForm({ movie, id }) {
 
           formData.append("data", JSON.stringify(data));
           try {
-            updateMovie(token, id, formData);
+            updateMovie(id, formData);
             navigate("/dashboard/movies");
           } catch (e) {
             setSubmitError({ message: e.message });

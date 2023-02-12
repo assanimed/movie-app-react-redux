@@ -16,7 +16,6 @@ const useAuth = () => {
       dispatch(
         setUser({
           user: { ...data.user },
-          token: data.jwt,
         })
       );
       dispatch(setAuthError(false));

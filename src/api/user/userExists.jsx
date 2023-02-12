@@ -1,8 +1,9 @@
 import { AxiosInstance } from "axios";
-const userExists = async (token, username, email) => {
+import getTokenCookie from "../../utils/helpers/getTokenCookie";
+const userExists = async (username, email) => {
   const options = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getTokenCookie}`,
       "Content-Type": "application/json",
     },
   };

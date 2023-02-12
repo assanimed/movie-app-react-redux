@@ -1,9 +1,10 @@
+import getTokenCookie from "../../utils/helpers/getTokenCookie";
 import { AxiosInstance } from "../AxiosInstance";
-const deleteUser = async (id, token) => {
+const deleteUser = async (id) => {
   try {
     const { data, ...response } = await AxiosInstance.delete(`/users/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getTokenCookie()}`,
       },
     });
 

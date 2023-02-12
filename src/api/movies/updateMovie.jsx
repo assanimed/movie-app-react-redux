@@ -1,8 +1,9 @@
+import getTokenCookie from "../../utils/helpers/getTokenCookie";
 import { AxiosInstance } from "../AxiosInstance";
-const updateMovie = async (token, id, formData) => {
+const updateMovie = async (id, formData) => {
   const options = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getTokenCookie()}`,
       "Content-Type": "multipart/form-data",
     },
   };
