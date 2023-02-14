@@ -1,12 +1,11 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
-import addUser from "../../api/user/addUser";
-import { useSelector, useDispatch } from "react-redux";
 
 import { default as Input } from "../ui/UserFormInput";
+
 import { useNavigate } from "react-router";
 
-import { toggleUserExists } from "../../features/user/UsersSlice";
+import { useAddNewUserMutation } from "../../features/user/usersApiSlice";
 
 const userSchema = Yup.object().shape({
   username: Yup.string()
@@ -26,11 +25,13 @@ const userSchema = Yup.object().shape({
 });
 
 const NewUserForm = () => {
-  const userExists = useSelector((state) => state.Users.form.userExists);
-  const dispatch = useDispatch();
-  const Navigate = useNavigate();
+  const [addUser, { isLoading, isError, error }] = useAddNewUserMutation();
+
+  if (isError) console.log(error?.status);
+
+  const navigate = useNavigate();
   const hanldeCancel = () => {
-    Navigate("/dashboard/users");
+    navigate("/dashboard/users");
   };
   return (
     <Formik
@@ -42,27 +43,13 @@ const NewUserForm = () => {
       }}
       validationSchema={userSchema}
       onSubmit={async (values) => {
-        try {
-          const res = await addUser(values);
-          if (res?.error) {
-            throw new Error(res.message);
-          }
-          Navigate("/dashboard/users");
-        } catch (e) {
-          dispatch(toggleUserExists());
-          setTimeout(dispatch, 2000, toggleUserExists());
+        const res = await addUser(values);
+        if (res?.data) {
+          navigate("/dashboard/users");
         }
       }}
     >
-      {({
-        values,
-        handleChange,
-        handleSubmit,
-        errors,
-        isValid,
-        isSubmitting,
-        resetForm,
-      }) => {
+      {({ values, handleChange, handleSubmit, errors, isValid }) => {
         return (
           <form
             onSubmit={handleSubmit}
@@ -109,14 +96,16 @@ const NewUserForm = () => {
               />
               <input
                 type="submit"
-                value={isSubmitting ? "Add..." : "Add"}
+                value={isLoading ? "Add..." : "Add"}
                 disabled={!isValid}
                 className="cursor-pointer text-white bg-indigo-500  px-10 py-2 rounded hover:bg-sky-500 disabled:cursor-not-allowed disabled:bg-sky-300"
               />
             </div>
-            {userExists && (
+            {isError && (
               <div className="text-sm text-center text-red-600 border-2 border-red-600 py-2 ">
-                User Already Exists, try with different username and email
+                {error?.status === 400
+                  ? "User Already Exists, try with different username and email"
+                  : "Internal Server Error"}
               </div>
             )}
           </form>

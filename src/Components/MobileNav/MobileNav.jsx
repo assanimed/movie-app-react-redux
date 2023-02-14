@@ -8,7 +8,7 @@ import { setTarget } from "../../features/modal/modalSlice";
 
 const MobileNav = () => {
   const dispatch = useDispatch();
-  const target = useSelector((state) => state.Modal.target);
+  const target = useSelector((state) => state.modal.target);
   const MenuRef = useRef();
 
   const handleMobileClose = () => {
