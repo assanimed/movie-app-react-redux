@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { initDarkTheme } from "../../store/ThemeSlice";
+import { initDarkTheme } from "../../features/theme/ThemeSlice";
 
 const useInitDarkTheme = () => {
   const dispatch = useDispatch();

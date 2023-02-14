@@ -1,10 +1,47 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Formik } from "formik";
-import useAuth from "../../utils/hooks/useAuth";
+import { useLoginMutation } from "../../features/auth/authApiSlice";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../features/auth/authSlice";
+
+import styled, { keyframes } from "styled-components";
+
+const inputStyle = `border-2 p-2 dark:text-black rounded focus:outline-none focus:border-transparent focus:ring focus:ring-[#a7f0e6] dark:focus:ring-[#6D67E4]`;
+
+const ErrorAnimation = keyframes`
+  0% { width : 100%}
+  100% {width: 0}
+`;
+
+const ErroWrapper = styled.span`
+  // color: red;
+  display: block;
+  text-align: center;
+  position: relative;
+  ::after {
+    content: "";
+    position: absolute;
+    bottom: -30%;
+    right: 0;
+    width: 100%;
+    height: 15%;
+    background-color: #c87122;
+    animation: ${ErrorAnimation} 5s linear;
+    }
+  }
+`;
 
 const LoginForm = () => {
-  const { login } = useAuth();
-  const inputStyle = `border-2 p-2 dark:text-black rounded focus:outline-none focus:border-transparent focus:ring focus:ring-[#a7f0e6] dark:focus:ring-[#6D67E4]`;
+  const dispatch = useDispatch();
+  const [login, { isLoading, isError, error }] = useLoginMutation();
+  const [hasError, setHasError] = useState(null);
+
+  useEffect(() => {
+    if (isError) {
+      setHasError(error?.data?.error?.message);
+      setTimeout(setHasError, 4950, null);
+    }
+  }, [isError]);
 
   return (
     <div>
@@ -18,11 +55,16 @@ const LoginForm = () => {
           if (!values.password) errors.password = "Required";
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(async () => {
-            await login(values.login, values.password);
-            setSubmitting(false);
-          }, 400);
+        onSubmit={async (values) => {
+          const { data } = await login({
+            identifier: values.login,
+            password: values.password,
+          });
+
+          const { user, jwt } = data;
+          document.cookie = `ma_at=${jwt};SameSite=Lax`;
+          document.cookie = `last_in=${new Date()};SameSite=Lax`;
+          dispatch(setUser({ user }));
         }}
       >
         {({
@@ -32,8 +74,6 @@ const LoginForm = () => {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
-          /* and other goodies */
         }) => (
           <form
             onSubmit={handleSubmit}
@@ -72,11 +112,16 @@ const LoginForm = () => {
             </div>
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isLoading}
               className="bg-[#6170a3] py-3 my-3 rounded-md text-white text-xl focus:outline-none focus:border-transparent focus:ring focus:ring-[#89a7ce]"
             >
-              {isSubmitting ? "Login..." : "Login"}
+              {isLoading ? "Login..." : "Login"}
             </button>
+            {hasError && (
+              <ErroWrapper className=" text-red-700 dark:text-[#E5E5CB]">
+                Invalid Login Credentials
+              </ErroWrapper>
+            )}
           </form>
         )}
       </Formik>

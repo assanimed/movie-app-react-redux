@@ -1,11 +1,20 @@
 import React from "react";
-import { setPublicMovies, setPublicMetaData } from "../../store/PublicMovies";
+
+import {
+  setPublicMovies,
+  setPublicMetaData,
+} from "../../features/movie/PublicMoviesSlice";
 import { Formik } from "formik";
 import UserFormInput from "../ui/UserFormInput";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleStatus, setFilterQuery } from "../../store/FilterSlice";
+
+import {
+  toggleStatus,
+  setFilterQuery,
+} from "../../features/filter/filterSlice";
+
 import getFilteredMovies from "../../api/movies/getFilteredMovies";
-import { setFilterMode } from "../../store/PublicMovies";
+import { setFilterMode } from "../../features/movie/PublicMoviesSlice";
 import filterQueryBuilder from "../../utils/helpers/filterQueryBuilder";
 
 const FilterForm = () => {

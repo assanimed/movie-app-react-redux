@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BiSearch } from "react-icons/bi";
 import { CgSearchLoading } from "react-icons/cg";
-import { setModalStatus, setTarget } from "../../store/ModalSlice";
+import { setModalStatus, setTarget } from "../../features/modal/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchMovies, setOnSearch } from "../../store/SearchSlice";
+import {
+  setSearchMovies,
+  setOnSearch,
+} from "../../features/search/SearchSlice";
 
 import { AxiosInstance } from "../../api/AxiosInstance";
 

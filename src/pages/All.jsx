@@ -3,7 +3,10 @@ import MovieGrid from "../Components/MovieGrid/MovieGrid";
 import Filter from "../Components/Filter/Filter";
 import { useDispatch, useSelector } from "react-redux";
 import getPublicMovies from "../api/movies/getPublicMovies";
-import { setPublicMovies, setPublicMetaData } from "../store/PublicMovies";
+import {
+  setPublicMovies,
+  setPublicMetaData,
+} from "../features/movie/PublicMoviesSlice";
 import getFilteredMovies from "../api/movies/getFilteredMovies";
 
 const All = () => {
@@ -11,7 +14,7 @@ const All = () => {
   const { movies, pageLimit, currentPage, filterMode } = useSelector(
     (state) => state.PublicMovies
   );
-  const query = useSelector((state) => state.Filter.query);
+  const query = useSelector((state) => state.filter.query);
 
   const loaAllovies = async (currentPage, pageLimit) => {
     const { data, meta } = await getPublicMovies(currentPage, pageLimit);

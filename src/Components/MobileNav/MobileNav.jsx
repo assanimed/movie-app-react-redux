@@ -3,7 +3,8 @@ import styles from "./MobileNav.module.scss";
 import MobileNavMenu from "./MobileNavMenu";
 import { RiMenuFoldLine } from "../../utils/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { setTarget } from "../../store/ModalSlice";
+
+import { setTarget } from "../../features/modal/modalSlice";
 
 const MobileNav = () => {
   const dispatch = useDispatch();

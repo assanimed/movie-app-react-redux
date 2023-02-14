@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../Pagination/Pagination";
-import { setCurrentPublicPage } from "../../store/PublicMovies";
+
+import { setCurrentPublicPage } from "../../features/movie/PublicMoviesSlice";
 
 import MovieItem from "./MovieItem";
 import { BASEURL } from "../../api/BASEURL";

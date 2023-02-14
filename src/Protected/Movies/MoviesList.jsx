@@ -1,35 +1,33 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMovies, setMetaData } from "../../store/MovieSlice";
+import { setMetaData } from "../../features/movie/movieSlice";
 
 import MoviesListTable from "./MoviesListTable";
-import getMovies from "../../api/movies/getMovies";
+
+import { useGetMoviesQuery } from "../../features/movie/movieApiSlice";
 
 function MoviesList() {
   const dispatch = useDispatch();
-  const { pageLimit, movies, currentPage } = useSelector(
-    (state) => state.Movies
-  );
+  const { pageLimit, currentPage } = useSelector((state) => state.movies);
 
-  useEffect(() => {
-    const loadMovies = async () => {
-      const res = await getMovies(currentPage, pageLimit);
+  const { data, isLoading, isSuccess } = useGetMoviesQuery({
+    currentPage,
+    pageLimit,
+  });
 
-      dispatch(setMovies(res?.data));
-      dispatch(setMetaData(res?.meta?.pagination));
-    };
-    loadMovies();
-    return () => dispatch(setMovies([]));
-  }, [currentPage]);
+  let movies;
+
+  if (isSuccess) {
+    movies = data?.data;
+    dispatch(setMetaData(data?.meta?.pagination));
+  } else if (isLoading) return <h1>Loading .... </h1>;
 
   return (
     <div className="p-2">
-      {movies?.length ? (
+      {movies?.length && (
         <div className="max-w-4xl mx-auto">
           <MoviesListTable moviesList={movies} />
         </div>
-      ) : (
-        <h1 className="text-center"> No Movies To View</h1>
       )}
     </div>
   );

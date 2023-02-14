@@ -1,14 +1,17 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setUsers } from "../../store/UsersSlice";
+
+import { setUsers } from "../../features/user/UsersSlice";
+
 import getUsers from "../../api/user/getUsers";
 import { AiFillDelete } from "react-icons/ai";
 import styles from "./UsersList.module.scss";
+
 import {
   setTarget,
   setModalStatus,
   setModalUser,
-} from "../../store/ModalSlice";
+} from "../../features/modal/modalSlice";
 import BackDrop from "../../Components/ui/BackDrop";
 import { createPortal } from "react-dom";
 import Details from "../../Components/ui/Details";
@@ -20,9 +23,9 @@ const UsersList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const users = useSelector((state) => state.Users.users);
-  const user = useSelector((state) => state.Modal.user);
-  const authUser = useSelector((state) => state.Auth.user);
-  const { isOpen, target } = useSelector((state) => state.Modal);
+  const user = useSelector((state) => state.modal.user);
+  const authUser = useSelector((state) => state.auth.user);
+  const { isOpen, target } = useSelector((state) => state.modal);
 
   const handleDeleteClick = async (id) => {
     dispatch(setTarget(4));
@@ -48,6 +51,7 @@ const UsersList = () => {
     (async () => {
       const users = await getUsers();
       const usersSet = users?.data ? users?.data : users;
+      console.log("usersSet -> ", usersSet);
       dispatch(setUsers(usersSet));
     })();
     return () => dispatch(setUsers([]));

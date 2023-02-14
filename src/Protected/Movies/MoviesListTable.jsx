@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 
 import MovieItemPreview from "./MovieItemPreview";
 import Pagination from "../../Components/Pagination/Pagination";
-import { setCurrentPage } from "../../store/MovieSlice";
+import { setCurrentPage } from "../../features/movie/movieSlice";
 
 const headFootStyles = `border text-white p-5`;
 
 function MoviesListTable({ moviesList }) {
   const dispatch = useDispatch();
-  const { currentPage, totalPages } = useSelector((state) => state.Movies);
+  const { currentPage, totalPages } = useSelector((state) => state.movies);
 
   const onpagiClick = (page) => {
     dispatch(setCurrentPage(page));

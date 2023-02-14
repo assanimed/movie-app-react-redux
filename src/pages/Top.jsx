@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getSortedPublicMovies from "../api/movies/getSortedPublicMovies";
 
-import { setPublicMovies, setPublicMetaData } from "../store/PublicMovies";
+import {
+  setPublicMovies,
+  setPublicMetaData,
+} from "../features/movie/PublicMoviesSlice";
 
 import MovieGrid from "../Components/MovieGrid/MovieGrid";
 

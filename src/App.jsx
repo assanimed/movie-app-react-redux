@@ -13,7 +13,6 @@ import {
   Logout,
   ErrorPage,
 } from "./Pages";
-import { loader as TitleLoader } from "./Pages/TitlePreview";
 
 import {
   Dashboard,
@@ -53,7 +52,6 @@ const router = createBrowserRouter([
       {
         path: "/title/:id",
         element: <TitlePreview />,
-        loader: TitleLoader,
       },
       {
         path: "/dashboard",

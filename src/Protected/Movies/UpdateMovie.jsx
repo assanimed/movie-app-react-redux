@@ -1,25 +1,19 @@
-import { useEffect } from "react";
-import { getMovie } from "../../api/movies/getMovie";
-import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import UpdateMovieForm from "../../Components/forms/UpdateMovieForm";
-import { setTitleMovie } from "../../store/TitleSlice";
+
+import { useGetMovieQuery } from "../../features/movie/movieApiSlice";
 
 const UpdateMovie = () => {
-  const dispatch = useDispatch();
-  const movie = useSelector((state) => state.Title.movie);
   const { id } = useParams();
-  useEffect(() => {
-    const loadMovie = async () => {
-      const { data } = await getMovie(id);
-      dispatch(setTitleMovie(data));
-    };
+  const { data, isLoading, isSuccess, isError, error } = useGetMovieQuery(id);
+  let movie = null;
+  if (isSuccess) movie = data?.data;
 
-    loadMovie();
-  }, []);
-  if (!movie) return <h1> Wait... </h1>;
-
-  return <UpdateMovieForm movie={movie.attributes} id={movie.id} />;
+  let content;
+  if (isLoading) content = <h1> Wait... </h1>;
+  if (isSuccess)
+    content = <UpdateMovieForm movie={movie.attributes} id={movie.id} />;
+  return content;
 };
 
 export default UpdateMovie;

@@ -1,18 +1,21 @@
 import React from "react";
 import MovieCardModal from "./MovieCardModal";
+
 import {
   setModalMovie,
   setModalStatus,
   setTarget,
-} from "../../store/ModalSlice";
+} from "../../features/modal/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import deleteMovie from "../../api/movies/deleteMovie";
-import { setMovies, setMetaData } from "../../store/MovieSlice";
+// import { setMovies,  } from "../../store/MovieSlice";
+import { setMetaData } from "../../features/movie/movieSlice";
 import getMovies from "../../api/movies/getMovies";
 
 const Details = ({ handleConfButton, onCancel }) => {
+  return;
   const dispatch = useDispatch();
-  const movie = useSelector((state) => state.Modal.movie);
+  const movie = useSelector((state) => state.modal.movie);
   const { pageLimit, ...rest } = useSelector((state) => state.Movies);
 
   const handleCancel = () => {

@@ -15,9 +15,14 @@ import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
 
 import BackDrop from "../ui/BackDrop";
-import { setModalStatus, setTarget, setPathName } from "../../store/ModalSlice";
 
-import { switchDarkMode } from "../../store/ThemeSlice";
+import {
+  setModalStatus,
+  setTarget,
+  setPathName,
+} from "../../features/modal/modalSlice";
+
+import { switchDarkMode } from "../../features/theme/ThemeSlice";
 import MobileNav from "../MobileNav/MobileNav";
 
 const HeaderWrapper = styled.div`
@@ -36,8 +41,8 @@ const HeaderWrapper = styled.div`
 function Header() {
   // const MenuRef = useRef();
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.Auth.isAuth);
-  const { isOpen, target } = useSelector((state) => state.Modal);
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const { isOpen, target } = useSelector((state) => state.modal);
   const isDark = useSelector((state) => state.Theme.isDark);
   const location = useLocation();
   const inDashboard =

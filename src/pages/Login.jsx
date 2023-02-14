@@ -14,31 +14,10 @@ const LoginWrapper = styled.div`
   flex-grow: 1;
 `;
 
-const ErrorAnimation = keyframes`
-  0% { width : 100%}
-  100% {width: 0}
-`;
-
-const ErroWrapper = styled.span`
-  // color: red;
-  display: block;
-  text-align: center;
-  position: relative;
-  ::after {
-    content: "";
-    position: absolute;
-    bottom: -30%;
-    right: 0;
-    width: 100%;
-    height: 15%;
-    background-color: #c87122;
-    animation: ${ErrorAnimation} 5s linear;
-    }
-  }
-`;
-
 function Login() {
-  const { authError, isAuth } = useSelector((state) => state.Auth);
+  const isAuth = useSelector((state) => state.auth.isAuth);
+
+  console.log("IS AUTH -> ", isAuth);
   const prevRoute = useSelector((state) => state.RoutesControl.prevRoute);
 
   const navigate = useNavigate();
@@ -53,11 +32,6 @@ function Login() {
         <LoginWrapper>
           <h1 className="text-2xl mb-5"> Admin Login </h1>
           <LoginForm />
-          {authError && (
-            <ErroWrapper className=" text-red-700 dark:text-[#E5E5CB]">
-              {authError}
-            </ErroWrapper>
-          )}
         </LoginWrapper>
       </main>
     </div>

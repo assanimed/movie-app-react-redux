@@ -1,9 +1,10 @@
 import axios from "axios";
 import { BASEURL } from "./BASEURL";
 
-import { setUser, unsetUser } from "../store/AuthSlice";
+// import { setUser, unsetUser } from "../store/AuthSlice";
+import { setUser, unsetUser } from "../features/auth/authSlice";
 
-import store from "../store";
+import store from "../app/store";
 
 import getTokenCookie from "../utils/helpers/getTokenCookie";
 
@@ -40,7 +41,7 @@ AxiosInstance.interceptors.response.use(
       const originalRequestConfig = error.config;
       const refreshData = await refreshAccessToken();
       if (refreshData?.jwt) {
-        const currentUser = store.getState().Auth.user;
+        const currentUser = store.getState().auth.user;
         const token = refreshData.jwt;
         document.cookie = `ma_at=${token};SameSite=Lax`;
         document.cookie = `last_login=${new Date()};SameSite=Lax`;

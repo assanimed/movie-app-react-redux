@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function AdminWelcome() {
-  const username = useSelector((state) => state?.Auth?.user?.username);
+  const username = useSelector((state) => state?.auth?.user?.username);
   return (
     <div>
       <div>

@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { default as Input } from "../ui/UserFormInput";
 import { useNavigate } from "react-router";
-import { toggleUserExists } from "../../store/UsersSlice";
+
+import { toggleUserExists } from "../../features/user/UsersSlice";
 
 const userSchema = Yup.object().shape({
   username: Yup.string()

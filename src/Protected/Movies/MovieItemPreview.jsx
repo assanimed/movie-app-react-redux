@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { AiFillThunderbolt, AiFillDelete, FaEdit } from "../../utils/icons";
 import { Link } from "react-router-dom";
-import { getMovie } from "../../api/movies/getMovie";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   setModalMovie,
   setModalStatus,
   setTarget,
-} from "../../store/ModalSlice";
+} from "../../features/modal/modalSlice";
 import styled from "styled-components";
 import { BASEURL } from "../../api/BASEURL";
 
@@ -46,7 +46,7 @@ function MovieItemPreview({ movie, index }) {
     }));
 
   const DeleteItem = async (id) => {
-    const { data: movie } = await getMovie(id);
+    const { data: movie } = 56466;
 
     dispatch(setModalStatus(true));
     dispatch(setTarget(2));

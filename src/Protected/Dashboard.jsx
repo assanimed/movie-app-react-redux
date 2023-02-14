@@ -8,14 +8,14 @@ import { Outlet, useNavigate, useLocation } from "react-router";
 import BackDrop from "../Components/ui/BackDrop";
 import { useSelector, useDispatch } from "react-redux";
 import Details from "../Components/ui/Details";
-import { setPrevRoute } from "../store/RoutesControlSlice";
+import { setPrevRoute } from "../features/routeControl/RoutesControlSlice";
 
 function Dashboard() {
   const dispatch = useDispatch();
   const location = useLocation();
   dispatch(setPrevRoute(location.pathname));
-  const { isOpen, target } = useSelector((state) => state.Modal);
-  const isAuth = useSelector((state) => state.Auth.isAuth);
+  const { isOpen, target } = useSelector((state) => state.modal);
+  const isAuth = useSelector((state) => state.auth.isAuth);
   const Navigate = useNavigate();
 
   useEffect(() => {

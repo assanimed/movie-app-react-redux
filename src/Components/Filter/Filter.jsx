@@ -2,13 +2,17 @@ import React from "react";
 import { MdOutlineSettingsInputComponent } from "react-icons/md";
 import { AiOutlineClear } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleStatus } from "../../store/FilterSlice";
+import { toggleStatus } from "../../features/filter/filterSlice";
 import FilterForm from "./FilterForm";
-import { setFilterMode, setPublicMetaData } from "../../store/PublicMovies";
+
+import {
+  setFilterMode,
+  setPublicMetaData,
+} from "../../features/movie/PublicMoviesSlice";
 
 function Filter() {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => state.Filter.isOpen);
+  const isOpen = useSelector((state) => state.filter.isOpen);
   const filterMode = useSelector((state) => state.PublicMovies.filterMode);
   const clearFilter = () => {
     dispatch(setFilterMode(false));

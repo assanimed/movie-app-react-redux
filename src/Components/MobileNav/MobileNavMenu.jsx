@@ -14,8 +14,8 @@ const LinkClasses = `flex items-center gap-2 block py-3 px-4 text-white hover:bg
 const linkParentClasses = `"block w-full`;
 
 const MobileNavMenu = ({ handleClose }) => {
-  const isAuth = useSelector((state) => state.Auth.isAuth);
-  const prevPathName = useSelector((state) => state.Modal.pathname);
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const prevPathName = useSelector((state) => state.modal.pathname);
   const location = useLocation();
 
   useEffect(() => {
