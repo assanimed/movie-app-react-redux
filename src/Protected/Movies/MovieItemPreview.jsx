@@ -9,7 +9,8 @@ import {
   setTarget,
 } from "../../features/modal/modalSlice";
 import styled from "styled-components";
-import { BASEURL } from "../../api/BASEURL";
+
+import { BASEURL } from "../../utils/BASEURL";
 
 const TbodyTr = styled.tr`
   padding: 10px;
@@ -46,17 +47,9 @@ function MovieItemPreview({ movie, index }) {
     }));
 
   const DeleteItem = async (id) => {
-    const { data: movie } = 56466;
-
     dispatch(setModalStatus(true));
     dispatch(setTarget(2));
-    dispatch(
-      setModalMovie({
-        id: movie.id,
-        title: movie?.attributes?.title ?? "No Title Provided!",
-        url: `${BASEURL}${movie?.attributes?.poster?.data?.attributes?.url}`,
-      })
-    );
+    dispatch(setModalMovie(id));
   };
 
   const handleConfirm = async () => {

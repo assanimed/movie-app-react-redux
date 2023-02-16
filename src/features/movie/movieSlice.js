@@ -23,9 +23,12 @@ const MovieSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setPageLimit: (state, action) => {
+      state.pageLimit = action.payload;
+    },
   },
 });
 
 export default MovieSlice.reducer;
 
-export const { setMetaData, setCurrentPage } = MovieSlice.actions;
+export const { setMetaData, setCurrentPage, setPageLimit } = MovieSlice.actions;

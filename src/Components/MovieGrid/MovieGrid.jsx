@@ -5,11 +5,11 @@ import Pagination from "../Pagination/Pagination";
 import { setCurrentPublicPage } from "../../features/movie/PublicMoviesSlice";
 
 import MovieItem from "./MovieItem";
-import { BASEURL } from "../../api/BASEURL";
+import { BASEURL } from "../../utils/BASEURL";
 
-function MovieGrid() {
+function MovieGrid({ movies }) {
   const dispatch = useDispatch();
-  const { movies, currentPage, totalPages } = useSelector(
+  const { currentPage, totalPages } = useSelector(
     (state) => state.PublicMovies
   );
 

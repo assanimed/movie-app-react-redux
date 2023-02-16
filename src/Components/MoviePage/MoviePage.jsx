@@ -1,6 +1,7 @@
 import { RiTimeLine } from "react-icons/ri";
 import { formatDuration } from "../../utils/helpers/formatDuration";
-import { BASEURL } from "../../api/BASEURL";
+
+import { BASEURL } from "../../utils/BASEURL";
 
 const MoviePage = ({ movie }) => {
   return (

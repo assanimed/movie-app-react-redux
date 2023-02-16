@@ -1,29 +1,25 @@
-// import { useEffect } from "react";
-import { AxiosInstance } from "../../api/AxiosInstance";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/auth/authSlice";
 
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import getTokenCookie from "../helpers/getTokenCookie";
+
+import { useConnectMutation } from "../../features/user/usersApiSlice";
 
 const useAutoLogin = () => {
   const dispatch = useDispatch();
+  const token = getTokenCookie();
 
-  const Token = getTokenCookie();
-  console.log("TOKEN --> ", Token);
+  const [connect] = useConnectMutation();
+
   useLayoutEffect(() => {
+    console.log("GET USER");
     const verifyUser = async () => {
-      const res = await AxiosInstance.get("/users/me", {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      });
-      let user = res;
-      if (res?.data) user = res?.data;
-      console.log("AUTO LOGIN USER -> ", user);
-      dispatch(setUser({ user }));
+      const { data: user } = await connect();
+
+      if (user) dispatch(setUser({ user }));
     };
-    verifyUser();
+    if (token) verifyUser();
   }, []);
 };
 

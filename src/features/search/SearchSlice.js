@@ -12,7 +12,7 @@ const SearchSlice = createSlice({
       state.movies = action.payload;
     },
     setSearchKeyword: (state, action) => {
-      state.keyword = action.keyword;
+      state.keyword = action.payload;
     },
     setOnSearch: (state, action) => {
       state.onSearch = action.payload;

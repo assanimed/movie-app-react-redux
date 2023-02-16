@@ -6,6 +6,7 @@ import styled, { keyframes } from "styled-components";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import useAutoLogin from "../utils/hooks/useAutoLogin";
 
 const LoginWrapper = styled.div`
   max-width: 500px;
@@ -15,9 +16,10 @@ const LoginWrapper = styled.div`
 `;
 
 function Login() {
+  useAutoLogin();
+
   const isAuth = useSelector((state) => state.auth.isAuth);
 
-  console.log("IS AUTH -> ", isAuth);
   const prevRoute = useSelector((state) => state.RoutesControl.prevRoute);
 
   const navigate = useNavigate();

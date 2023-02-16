@@ -62,8 +62,8 @@ const LoginForm = () => {
           });
 
           const { user, jwt } = data;
-          document.cookie = `ma_at=${jwt};SameSite=Lax`;
-          document.cookie = `last_in=${new Date()};SameSite=Lax`;
+          document.cookie = `ma_at=${jwt};SameSite=Lax;Path=/`;
+          document.cookie = `last_in=${new Date()};SameSite=Lax;Path=/`;
           dispatch(setUser({ user }));
         }}
       >

@@ -2,7 +2,10 @@ import React from "react";
 import { MdOutlineSettingsInputComponent } from "react-icons/md";
 import { AiOutlineClear } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleStatus } from "../../features/filter/filterSlice";
+import {
+  setFilterQuery,
+  toggleStatus,
+} from "../../features/filter/filterSlice";
 import FilterForm from "./FilterForm";
 
 import {
@@ -16,6 +19,7 @@ function Filter() {
   const filterMode = useSelector((state) => state.PublicMovies.filterMode);
   const clearFilter = () => {
     dispatch(setFilterMode(false));
+    dispatch(setFilterQuery(""));
     dispatch(setPublicMetaData({ page: 1 }));
   };
 

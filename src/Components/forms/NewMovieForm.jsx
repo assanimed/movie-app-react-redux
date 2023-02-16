@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Formik } from "formik";
 
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import postMovie from "../../api/movies/postMovie";
+import { usePostMovieMutation } from "../../features/movie/movieApiSlice";
 
 import MovieSchema from "../../utils/schemas/MovieSchema";
 
@@ -15,16 +14,23 @@ const ErrMessageWrapper = styled.div`
   border-radius: 5px;
 `;
 
+const divRowStyle = `flex flex-col items-start gap-2`;
+const labelStyle = `px-2`;
+const inputStyle = `border-2 dark:bg-transparent rounded  p-2 w-full max-w-[30rem] text-sm focus:outline-none focus:border-indigo-400`;
+const errStyle = `text-[red] text-xs px-2`;
+
 function NewMovieForm() {
-  const divRowStyle = `flex flex-col items-start gap-2`;
-  const labelStyle = `px-2`;
-  const inputStyle = `border-2 dark:bg-transparent rounded  p-2 w-full max-w-[30rem] text-sm focus:outline-none focus:border-indigo-400`;
-  const errStyle = `text-[red] text-xs px-2`;
+  const [postMovie, { isLoading, isSuccess, isError, error }] =
+    usePostMovieMutation();
 
   const navigate = useNavigate();
-  const [submitError, setSubmitError] = useState(null);
-  const hideErrMessage = () => setSubmitError((prev) => !prev);
   const handleCancel = () => navigate("/dashboard/movies");
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(navigate("/dashboard/movies"), 100);
+    }
+  }, [isSuccess]);
 
   return (
     <div className="p-5 mb-[3rem]">
@@ -55,15 +61,7 @@ function NewMovieForm() {
 
           formData.append("data", JSON.stringify(data));
 
-          try {
-            const res = await postMovie(formData);
-            if (res?.error) throw new Error(res.error);
-            setSubmitting(false);
-            navigate("/dashboard/movies");
-          } catch (e) {
-            setSubmitError({ message: e.message });
-            setTimeout(() => setSubmitError(null), 3000);
-          }
+          await postMovie(formData);
         }}
       >
         {({
@@ -277,19 +275,19 @@ function NewMovieForm() {
                   value="Cancel"
                   onClick={handleCancel}
                   className="py-3 px-10 text-white rounded cursor-pointer bg-indigo-900"
-                  disabled={isSubmitting}
+                  disabled={isLoading}
                 />
                 <input
                   type="submit"
-                  value={isSubmitting ? "Loading..." : "Add"}
+                  value={isLoading ? "Loading..." : "Add"}
                   name="Add"
                   className="py-3 px-10 text-white rounded cursor-pointer duration-100 bg-indigo-500 hover:bg-indigo-700"
                 />
               </div>
-              {submitError && (
-                <ErrMessageWrapper onDoubleClick={hideErrMessage}>
-                  {" "}
-                  {submitError.message}{" "}
+              {isError && (
+                <ErrMessageWrapper>
+                  {/* {submitError.message} */}
+                  Failed to add the Movie!
                 </ErrMessageWrapper>
               )}
             </form>

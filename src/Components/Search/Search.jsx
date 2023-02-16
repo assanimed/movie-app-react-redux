@@ -8,14 +8,15 @@ import {
   setOnSearch,
 } from "../../features/search/SearchSlice";
 
-import { AxiosInstance } from "../../api/AxiosInstance";
-
 import SearchResult from "./SearchResult";
+
+import { setSearchKeyword } from "../../features/search/SearchSlice";
 
 function Search() {
   const dispatch = useDispatch();
   const onSearch = useSelector((state) => state.Search.onSearch);
   const [key, setKey] = useState(null);
+
   const closeModal = () => {
     dispatch(setSearchMovies([]));
     dispatch(setModalStatus(false));
@@ -25,21 +26,15 @@ function Search() {
   const handleKeyDown = (e) => setKey(e.key);
   document.addEventListener("keydown", handleKeyDown);
 
-  const startSearch = async (keyword) => {
-    const res = await AxiosInstance.get(
-      `/movies?filters[title][$contains]=${keyword}&populate=poster`
-    );
-    const { data } = res.data;
-    dispatch(setSearchMovies(data));
-  };
-
   const handleSearchChange = (e) => {
     dispatch(setOnSearch(true));
     const val = e.target.value;
     if (val.length >= 2) {
-      startSearch(val);
-    } else dispatch(setSearchMovies([]));
-    if (val === "") dispatch(setOnSearch(false));
+      dispatch(setSearchKeyword(val));
+    } else {
+      dispatch(setSearchKeyword(""));
+      dispatch(setOnSearch(false));
+    }
   };
 
   useEffect(() => {
@@ -50,7 +45,7 @@ function Search() {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       dispatch(setOnSearch(false));
-      dispatch(setSearchMovies([]));
+      dispatch(setSearchKeyword(""));
     };
   }, [key]);
 

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import updateMovie from "../../api/movies/updateMovie";
-import { useSelector } from "react-redux";
-import { BASEURL } from "../../api/BASEURL";
+import { BASEURL } from "../../utils/BASEURL";
+
+import { useUpdateMovieMutation } from "../../features/movie/movieApiSlice";
 
 const ErrMessageWrapper = styled.div`
   background: red;
@@ -20,23 +19,27 @@ const MovieSchema = Yup.object().shape({
     .required("Title is Required"),
 });
 
-function UpdateMovieForm({ movie, id }) {
-  const divRowStyle = `flex flex-col items-start gap-2`;
-  const labelStyle = `px-2`;
-  const inputStyle = `border-2 rounded dark:bg-transparent  p-2 w-full max-w-[30rem] text-sm focus:outline-none focus:border-indigo-400`;
-  const errStyle = `text-[red] text-xs px-2`;
+const divRowStyle = `flex flex-col items-start gap-2`;
+const labelStyle = `px-2`;
+const inputStyle = `border-2 rounded dark:bg-transparent  p-2 w-full max-w-[30rem] text-sm focus:outline-none focus:border-indigo-400`;
+const errStyle = `text-[red] text-xs px-2`;
 
+function UpdateMovieForm({ movie, id }) {
+  const [UpdatMovie, { isLoading, isSuccess, isError, error }] =
+    useUpdateMovieMutation();
   const navigate = useNavigate();
-  const [submitError, setSubmitError] = useState(null);
-  const hideErrMessage = () => setSubmitError((prev) => !prev);
   const handleCancel = () => navigate("/dashboard/movies");
+
+  if (isSuccess) {
+    setTimeout(navigate("/dashboard/movies"), 200);
+  }
 
   return (
     <div className="p-5 mb-[3rem]">
       <Formik
         initialValues={movie}
         validationSchema={MovieSchema}
-        onSubmit={async (values, { setSubmitting, ...rest }) => {
+        onSubmit={async (values) => {
           const formData = new FormData();
           const data = {};
           const { title } = values;
@@ -51,14 +54,8 @@ function UpdateMovieForm({ movie, id }) {
           }
 
           formData.append("data", JSON.stringify(data));
-          try {
-            updateMovie(id, formData);
-            navigate("/dashboard/movies");
-          } catch (e) {
-            setSubmitError({ message: e.message });
-            setTimeout(() => setSubmitError(null), 3000);
-          }
-          setSubmitting(false);
+
+          await UpdatMovie({ id, formData });
         }}
       >
         {({
@@ -270,15 +267,16 @@ function UpdateMovieForm({ movie, id }) {
                 />
                 <input
                   type="submit"
-                  value={isSubmitting ? "Loading..." : "Update"}
+                  value={isLoading ? "Loading..." : "Update"}
                   name="Add"
                   className="py-3 px-10 text-white rounded cursor-pointer duration-100 bg-indigo-500 hover:bg-indigo-700"
                 />
               </div>
-              {submitError && (
-                <ErrMessageWrapper onDoubleClick={hideErrMessage}>
-                  {" "}
-                  {submitError.message}{" "}
+              {isError && (
+                <ErrMessageWrapper>
+                  {error?.status >= 500
+                    ? "Server Error"
+                    : "Failed to update the Movie!"}
                 </ErrMessageWrapper>
               )}
             </form>

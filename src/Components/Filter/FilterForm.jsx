@@ -1,9 +1,3 @@
-import React from "react";
-
-import {
-  setPublicMovies,
-  setPublicMetaData,
-} from "../../features/movie/PublicMoviesSlice";
 import { Formik } from "formik";
 import UserFormInput from "../ui/UserFormInput";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,13 +7,11 @@ import {
   setFilterQuery,
 } from "../../features/filter/filterSlice";
 
-import getFilteredMovies from "../../api/movies/getFilteredMovies";
 import { setFilterMode } from "../../features/movie/PublicMoviesSlice";
 import filterQueryBuilder from "../../utils/helpers/filterQueryBuilder";
 
 const FilterForm = () => {
   const dispatch = useDispatch();
-  const { pageLimit } = useSelector((state) => state.PublicMovies);
 
   const handleCancel = () => {
     dispatch(toggleStatus());
@@ -48,9 +40,6 @@ const FilterForm = () => {
 
         dispatch(setFilterQuery(query));
         dispatch(setFilterMode(true));
-        const { data, meta } = await getFilteredMovies(query, 1, pageLimit);
-        dispatch(setPublicMovies(data));
-        dispatch(setPublicMetaData(meta.pagination));
         dispatch(toggleStatus());
       }}
     >

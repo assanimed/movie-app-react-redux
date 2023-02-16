@@ -1,9 +1,7 @@
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setUsers } from "../../features/user/UsersSlice";
+import { useGetUsersQuery } from "../../features/user/usersApiSlice";
 
-import getUsers from "../../api/user/getUsers";
 import { AiFillDelete } from "react-icons/ai";
 import styles from "./UsersList.module.scss";
 
@@ -15,47 +13,29 @@ import {
 import BackDrop from "../../Components/ui/BackDrop";
 import { createPortal } from "react-dom";
 import Details from "../../Components/ui/Details";
-import { getUser } from "../../api/user/getUser";
-import { useNavigate } from "react-router";
-import deleteUser from "../../api/user/deleteUser";
 
 const UsersList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const users = useSelector((state) => state.Users.users);
-  const user = useSelector((state) => state.modal.user);
-  const authUser = useSelector((state) => state.auth.user);
+
+  const {
+    data: users,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetUsersQuery();
+
   const { isOpen, target } = useSelector((state) => state.modal);
 
-  const handleDeleteClick = async (id) => {
+  const handleDeleteClick = async (info) => {
     dispatch(setTarget(4));
     dispatch(setModalStatus(true));
-    const data = await getUser(id);
-    dispatch(setModalUser(data));
-  };
-  const clearModal = () => {
-    dispatch(setModalStatus(false));
-    dispatch(setModalUser(null));
-    dispatch(setTarget(0));
+    dispatch(setModalUser(info));
   };
 
-  const handleCancel = () => clearModal();
+  if (isError) return <h2>Failed to Load Users!</h2>;
 
-  const handlefirmation = async () => {
-    await deleteUser(user.id);
-    setTimeout(clearModal, 200);
-    if (authUser.id === user.id) navigate("/logout");
-  };
-
-  useEffect(() => {
-    (async () => {
-      const users = await getUsers();
-      const usersSet = users?.data ? users?.data : users;
-      console.log("usersSet -> ", usersSet);
-      dispatch(setUsers(usersSet));
-    })();
-    return () => dispatch(setUsers([]));
-  }, [user]);
+  if (isLoading) return <h2>Loading...</h2>;
 
   return (
     <>
@@ -63,10 +43,7 @@ const UsersList = () => {
         target === 4 &&
         createPortal(
           <BackDrop>
-            <Details
-              handleConfButton={handlefirmation}
-              onCancel={handleCancel}
-            />
+            <Details />
           </BackDrop>,
           document.querySelector("#modalPreview")
         )}
@@ -97,7 +74,9 @@ const UsersList = () => {
                       <div className="flex justify-center">
                         <AiFillDelete
                           className="hover:text-indigo-400 cursor-pointer "
-                          onClick={() => handleDeleteClick(id)}
+                          onClick={() =>
+                            handleDeleteClick({ id, username, email })
+                          }
                         />
                       </div>
                     </td>
