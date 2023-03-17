@@ -12,8 +12,8 @@ function Logout() {
   useEffect(() => {
     const logOutProcess = async () => {
       await dispatch(unsetUser());
-      document.cookie = "ma_at= ;max-age=-1";
-      document.cookie = `last_in= ;max-age=-1`;
+      document.cookie = "ma_at= ;max-age=0;Path=/";
+      document.cookie = `last_in= ;max-age=0;Path=/`;
       navigate("/");
     };
     logOutProcess();

@@ -25,6 +25,9 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Not Yet Fully Implement JWT refresh Token to Keep the use Authenticated
+    navigate("/");
+
     if (isAuth) navigate(prevRoute ?? "/dashboard");
   }, [isAuth]);
   return (
