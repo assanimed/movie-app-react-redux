@@ -12,7 +12,7 @@ import {
   Login,
   Logout,
   ErrorPage,
-} from "./Pages";
+} from "./pages";
 
 import {
   Dashboard,

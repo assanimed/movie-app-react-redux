@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import Header from "../Components/Header/Header";
 import SideBar from "../Components/SideBar/SideBar";
-import { Preview } from "../Pages/Main";
+import { Preview } from "../pages/Main";
 import AdminMenu from "./Components/AdminMenu";
 import { Outlet, useNavigate, useLocation } from "react-router";
 import BackDrop from "../Components/ui/BackDrop";
