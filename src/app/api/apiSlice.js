@@ -21,17 +21,14 @@ const refreshBaseQuery = fetchBaseQuery({
 });
 
 const reauthBaseQuery = async (args, api, extraOptions) => {
-  console.log("ARGS ---> ", args, api, extraOptions);
   let result = await baseQuery(args, api, extraOptions);
   if (result?.error?.status === 401) {
-    console.log("INVOKE REFRESH TOKEN");
     const refreshResult = await refreshBaseQuery(
       "/api/token/refresh",
       api,
       extraOptions
     );
 
-    console.log("Refresh RESULT ->", refreshResult);
     if (refreshResult?.data) {
       const token = refreshResult?.data?.jwt;
       document.cookie = `ma_at=${token};SameSite=Lax;Path=/`;
